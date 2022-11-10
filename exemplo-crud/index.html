@@ -1,0 +1,32 @@
+<!DOCTYPE html><!-- Indica que pode usar TAGS ddo HTML5-->
+<html>
+<head>
+    <title>Exemplo CRUD</title>
+</head>
+<body>
+    <h4>Exenplo CRUD usando API Back-end.</h4>
+    <div id="lista">Minha Div onde vamos colocar a lista da API.</div>
+    <script>
+        // request via JS ajax 4 passos
+        // 1 criar uma variável
+        xhhtp = new XMLHttpRequest();
+        // 2 definição do nosso request (forma e endereço)
+        xhhtp.open("GET", "https://senai-java2022.herokuapp.com/api/usuario/");
+        // 3 enviando de fato o request
+        xhhtp.send();
+        // 4 execução quando tiver a devolutiva do request
+        xhhtp.onload = function() {
+            lista = this.responseText;
+            console.log(lista);
+            lista = JSON.parse(lista);
+            console.log(lista);
+
+            document.getElementById('lista').innerHTML = "Lista de Pessoas <br>";
+
+            for (const i of lista) {
+                document.getElementById('lista').append(i.nome+" - ");
+            }            
+        }
+    </script>
+</body>
+</html>
