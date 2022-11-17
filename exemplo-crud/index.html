@@ -19,7 +19,7 @@
 
         function listar() {
             // 02 definição do nosso request (forma e endereço)
-            xhttp.open("GET", "https://qua-209050.herokuapp.com/api/usuario/");
+            xhttp.open("GET", "https://senai-java2022.herokuapp.com/api/usuario/");
             // 03 manda de fato a request
             xhttp.send();
             // 04 execução quando tiver a devolutiva do request
@@ -44,7 +44,7 @@
             usuario.email = document.getElementById("email").value;
             console.log(usuario);
 
-            xhttp.open("POST", "https://qua-209050.herokuapp.com/api/usuario/");
+            xhttp.open("POST", "https://senai-java2022.herokuapp.com/api/usuario/");
             xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
             xhttp.send(JSON.stringify(usuario));
