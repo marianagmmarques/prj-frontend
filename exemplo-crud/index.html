@@ -1,25 +1,31 @@
-<!DOCTYPE html><!-- Indica que pode usar TAGS ddo HTML5-->
+<!DOCTYPE html><!-- indica que pode usar tags do HTML5 -->
 <html>
+
 <head>
     <title>Exemplo CRUD</title>
 </head>
+
 <body>
     <h4>Exemplo CRUD usando a api back-end.</h4>
+    <input type="hidden" id="id">
     Nome:<br>
     <input type="text" id="nome"><br>
     Email:<br>
     <input type="text" id="email"><br>
     <input type="button" value="Gravar" onclick="incluir()">
+    <input type="button" value="Novo" onclick="limpar()">
+    <input type="button" value="Apagar" onclick="apagar()">
 
     <div id="lista">minha div onde vamos colocar a lista da api</div>
     <script>
         // request via JavaScript ajax 4 passos
         // 01 criar a váriavel
         xhttp = new XMLHttpRequest();
+        var lista ;
 
         function listar() {
             // 02 definição do nosso request (forma e endereço)
-            xhttp.open("GET", "https://senai-java2022.herokuapp.com/api/usuario/");
+            xhttp.open("GET", "https://qua-209050.herokuapp.com/api/usuario/");
             // 03 manda de fato a request
             xhttp.send();
             // 04 execução quando tiver a devolutiva do request
@@ -30,8 +36,10 @@
                 console.log(lista);
                 
                 texto = "Lista de pessoas <br>";
+                i = 0;
                 for (const u of lista) {
-                    texto += `${u.nome} - ${u.email} - 🔄 <br>`;
+                    texto += `${u.nome} - ${u.email} - <span onclick='editar(${i})'>📝</span> <br>`;
+                    i++;
                 }
                 document.getElementById('lista').innerHTML = texto;
             }
@@ -42,12 +50,20 @@
             var usuario = {};
             usuario.nome = document.getElementById("nome").value;
             usuario.email = document.getElementById("email").value;
-            console.log(usuario);
+            // console.log(usuario);
 
-            xhttp.open("POST", "https://senai-java2022.herokuapp.com/api/usuario/");
+            usuario.id = document.getElementById("id").value;
+            if(usuario.id > 0){
+                metodo = "PUT";
+            }else{
+                metodo = "POST";
+            }
+
+            xhttp.open(metodo, "https://senai-java2022.herokuapp.com/api/usuario/");
             xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
             xhttp.send(JSON.stringify(usuario));
+            
             xhttp.onload = function () {
                 console.log(this.responseText);
                 listar();
@@ -59,11 +75,30 @@
         function limpar() {
             document.getElementById("nome").value = "";
             document.getElementById("email").value = "";
+            document.getElementById("id").value = "";
+        }
+
+        function editar(i) {
+            u = lista[i];
+            document.getElementById("nome").value = u.nome;
+            document.getElementById("email").value = u.email;
+            document.getElementById("id").value = u.id;
+        }
+
+        function apagar() {
+            id = document.getElementById("id").value;
+            xhttp.open("DELETE","https://senai-java2022.herokuapp.com/api/usuario/"+id);
+            xhttp.send();
+            xhttp.onload = function() {
+                alert(this.responseText);
+                listar();
+                limpar();
+            }
         }
 
         listar();
 
     </script>
-    
 </body>
+
 </html>
