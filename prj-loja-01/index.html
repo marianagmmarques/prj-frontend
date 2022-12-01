@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Nome da Loja</title>
+</head>
+<body>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #banner {
+            background-color: black;
+            padding: 30px 300px 30px 300px;
+            width: 100%;
+            position: fixed;
+            top: 0px;
+        }
+
+        #banner img {
+            width: 50px;
+            float: left;
+            margin-right: 30px;
+        }
+
+        #banner h1 {
+            color: aqua;
+        }
+
+        #container {
+            display: grid;
+            place-items: center;
+        }
+
+        .ls-produto {
+            width: 700px;
+            margin-top: 106px;
+        }
+
+        .produto {
+            border: solid black 3px;
+            width: 200px;
+            height: 210px;
+            float: left;
+            margin: 10px;
+            cursor: pointer;
+            /* border-color: aqua; */
+        }
+
+        .produto-selecionado {
+            border-color: aqua;
+        }
+
+        .produto img {
+            width: 100%;
+            height: 70%;
+        }
+
+        .produto .nome {
+            background-color: black;
+            color: aqua;
+            height: 15%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .produto .valor {
+            display: flex;
+            align-items: center;
+            height: 15%;
+            padding-left: 10px;
+        }
+
+        #bt-fixo,
+        #bt-fixo span {
+            background-color: aqua;
+            width: 90px;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: solid black 3px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+        }
+
+        #bt-fixo span {
+            width: 20px;
+            height: 20px;
+            bottom: 95px;
+            background-color: black;
+            color: aqua;
+        }
+
+        @media (max-width: 700px) {
+            #banner {
+                padding: 30px 30px 30px 30px;
+            }
+
+            #bt-fixo {
+                right: 30px;
+            }
+        }
+    </style>
+    <div id="banner">
+        <img src="icone-loja.png" alt="">
+        <h1>Nome da Loja</h1>
+    </div>
+    <div id="container">
+        <div class="ls-produto">
+            <div class="produto">
+                <img src="produto.svg" alt="">
+                <p class="nome">Nome Produto</p>
+                <p class="valor">R$112,00</p>
+            </div>
+
+            <div class="produto">
+                <img src="produto2.png" alt="">
+                <p class="nome">Nome Produto</p>
+                <p class="valor">R$150,00</p>
+            </div>
+
+            <div class="produto">
+                <img src="produto.svg" alt="">
+                <p class="nome">Nome Produto</p>
+                <p class="valor">R$112,00</p>
+            </div>
+
+            <div class="produto">
+                <img src="produto2.png" alt="">
+                <p class="nome">Nome Produto</p>
+                <p class="valor">R$150,00</p>
+            </div>
+
+            <div class="produto">
+                <img src="produto.svg" alt="">
+                <p class="nome">Nome Produto</p>
+                <p class="valor">R$112,00</p>
+            </div>
+
+            <div class="produto">
+                <img src="produto2.png" alt="">
+                <p class="nome">Nome Produto</p>
+                <p class="valor">R$150,00</p>
+            </div>
+        </div>
+        <div id="bt-fixo">
+            <i style="font-size:54px" class="fa">&#xf07a;</i>
+            <span id="qt-produto">0</span>
+        </div>
+    </div> 
+    <script>
+        function addCarrinho(elemento) {
+            if (elemento.classList.length == 2) {
+                document.getElementById("qt-produto").innerHTML = 0;
+                elemento.classList.remove("produto-selecionado");
+            } else {
+                document.getElementById("qt-produto").innerHTML = 1;
+                elemento.classList.add("produto-selecionado");
+            }
+        }
+    </script>  
+</body>
+</html>
