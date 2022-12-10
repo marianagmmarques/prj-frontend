@@ -118,6 +118,48 @@
                 right: 30px;
             }
         }
+
+        table {
+            width: 100%;
+        }
+
+        tr {
+            height: 30px;
+            background-color: gray;
+            text-align: center;
+
+        }
+
+        tr span {
+            background-color: black;
+            color: white;
+            height: 100%;
+            padding: 6%;
+            margin-right: 2px;
+            margin-left: 2px;
+            cursor: pointer;
+            float: left;
+            width: 20px;
+        }
+
+        label {
+            font-size: larger;
+        }
+
+        #nome {
+            background-color: gray;
+            width: 70%;
+            height: 30px;
+            border: none;
+        }
+
+        #bt-enviar {
+            background-color: black;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+        }
     </style>
     <div id="banner">
         <img src="icone-loja.png" alt="">
@@ -135,12 +177,11 @@
                     </tr>
                 </thead>
                 <tbody>
-
                 </tbody>
             </table>
             <label for="nome">Nome</label><br>
-            <input type="text" id="nome"><br>
-            <input type="button" value="Enviar Pedido" onclick="enviarWhatsApp()">
+            <input type="text" id="nome">
+            <input type="button" id="bt-enviar" value="Enviar Pedido" onclick="enviarWhatsApp()">
         </div>
         <div class="ls-produto" id="lsProduto">
         </div>
@@ -150,6 +191,8 @@
             <span id="qt-produto">0</span>
         </div>
     </div>
+	
+	
     <script>
         qtCarrinho = 0;
         function addCarrinho(elemento, i) {
@@ -214,22 +257,22 @@
                 if (p.carrinho) {
                     tbody += `<tr>
                     <td>${p.nome}</td>
-                    <td>${p.valor}</td>
+                    <td>${p.valor.toFixed(2)}</td>
                     <td>${p.quantidade}</td>
-                    <td>${p.valorParcial}</td>
+                    <td>${p.valorParcial.toFixed(2)}</td>
                     <td><span onclick="add(${i},${it},1)">+</span>
                         <span onclick="add(${i},${it},-1)">-</span></td>
                     </tr>`;
                     it++;
                     valorFinal += p.valorParcial;
-                    pedido += `${p.nome} ${p.valor} x (${p.quantidade}) = ${p.valorParcial} \n`;
+                    pedido += `${p.nome} ${p.valor.toFixed(2)} x (${p.quantidade}) = ${p.valorParcial.toFixed(2)} \n`;
                 }
                 i++;
             }
             tbody += `
-                <tr><td>Valor Final</td><td>${valorFinal}</td></tr>
+                <tr><td colspan="3">Valor Final</td><td>${valorFinal.toFixed(2)}</td></tr>
                 `
-            pedido += `Valor Final = ${valorFinal} \n`
+            pedido += `Valor Final = ${valorFinal.toFixed(2)} \n`
             document.getElementsByTagName("tbody")[0].innerHTML = tbody;
 
         }
@@ -250,19 +293,36 @@
             p = lsProduto[i];
             p.quantidade = p.quantidade + opc;
             p.valorParcial = p.quantidade * p.valor;
+            if (p.quantidade == 0) {
+                p.carrinho = false;
+                elemento = document.getElementsByClassName("produto")[i];
+                addCarrinho(elemento, i)
+            }
             carrinho();
             // tr = document.getElementsByTagName("tr")[it];
             // tr.getElementsByTagName("td")[2].innerHTML = p.quantidade;
             // tr.getElementsByTagName("td")[3].innerHTML = p.valorParcial;
         }
- 
+
         function enviarWhatsApp() {
-            fone = "5561999886936";
+
+            fone = "5561985607460";
             nome = document.getElementById("nome").value;
+
+            if (nome == '') {
+                alert("Nome obrigatório");
+                return false;
+            }
+
+            if (qtCarrinho == 0) {
+                alert("Escolha 1 produto");
+                return false;
+            }
+
             pedido += `Cliente: ${nome}`;
             pedido = encodeURI(pedido);
             link = `https://api.whatsapp.com/send?phone=${fone}&text=${pedido}`;
-            window.open(link,'_blank');
+            window.open(link, '_blank');
         }
     </script>
 </body>
