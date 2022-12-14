@@ -2,7 +2,7 @@
 // 01 criar a váriavel
 xhttp = new XMLHttpRequest();
 var lista;
-var api = "https://senai-java2022.herokuapp.com/api/usuario/";
+var api = "https://localhost:8080/api/usuario/";
 
 function listar() {
     // 02 definição do nosso request (forma e endereço)
