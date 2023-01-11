@@ -24,7 +24,7 @@ public class EstadoService {
         return estadoNovo;
     }
     public Estado alterar (Estado estado){
-        estado.setDdataAtualizacao(new Date());
+        estado.setDataAtualizacao(new Date());
         return estadoRepository.saveAndFlush(estado);
     }
     public void excluir (Long id){
