@@ -26,7 +26,6 @@ public class EstadoController {
     @GetMapping("/")
     public List<Estado> buscarTodos(){
         return estadoService.buscarTodos();
-
     }
 
     @PostMapping("/")
