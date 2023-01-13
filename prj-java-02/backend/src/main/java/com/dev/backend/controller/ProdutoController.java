@@ -17,7 +17,7 @@ import com.dev.backend.entity.Produto;
 import com.dev.backend.service.ProdutoService;
 
 @RestController
-@RequestMapping("/api/produto")
+@RequestMapping("/api/produto2")
 public class ProdutoController {
 
     @Autowired

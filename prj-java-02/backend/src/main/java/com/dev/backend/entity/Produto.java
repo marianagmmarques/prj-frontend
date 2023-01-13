@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 import lombok.Data;
 
 @Entity
-@Table(name = "produto")
+@Table(name = "produto2")
 @Data
 public class Produto {
     @Id
