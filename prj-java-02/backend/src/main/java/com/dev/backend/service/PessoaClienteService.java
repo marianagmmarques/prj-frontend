@@ -14,7 +14,7 @@ import com.dev.backend.repository.PessoaClienteRepository;
 @Service
 public class PessoaClienteService {
     @Autowired
-    private PessoaClienteRepository pessoaRepository;
+    private PessoaClienteRepository pessoaClienteRepository;
 
     @Autowired
     private PermissaoPessoaService permissaoPessoaService;
@@ -25,7 +25,7 @@ public class PessoaClienteService {
     public Pessoa registrar(PessoaClienteRequestDTO pessoaClienteRequestDTO){
         Pessoa pessoa = new PessoaClienteRequestDTO().converter(pessoaClienteRequestDTO);
         pessoa.setDataCriacao(new Date());
-        Pessoa objetoNovo = pessoaRepository.saveAndFlush(pessoa);
+        Pessoa objetoNovo = pessoaClienteRepository.saveAndFlush(pessoa);
         permissaoPessoaService.vincularPessoaPermissaoCliente(objetoNovo);
         //emailService.enviarEmailTexto(
         //    pessoaNovo.getEmail(), "Cadastro na Loja Virtual", "Cadastro na Loja realizado com Sucesso. Em breve você receberá a senha por e-mail."
